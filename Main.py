@@ -40,7 +40,7 @@ advice_text = open("Data/advice.txt", "r")
 all_lines = advice_text.readlines()
 
 #Functions------------
-def roll(choice1, choice2, choice3, credit, machine_symbols, points,counter, x, text4, textRect4, text5, textRect5, textRect6, text6):
+def roll(choice1, choice2, choice3, credit, machine_symbols,counter, x, text4, textRect4, textRect6, text6):
     choice1 = random.choice(machine_symbols)
     choice2 = random.choice(machine_symbols)
     choice3 = random.choice(machine_symbols)
@@ -84,7 +84,6 @@ def roll(choice1, choice2, choice3, credit, machine_symbols, points,counter, x, 
         """
 
     print("You got", choice1, choice2, choice3, "Your credit so far is: ", credit)
-    points = str(credit)
     while counter < 1500:
         if choice1 == "Presents":
             Screen.blit(Presents_size, (55,165))
@@ -130,12 +129,6 @@ def roll(choice1, choice2, choice3, credit, machine_symbols, points,counter, x, 
         textRect4.center = (250, 550)
         Screen.blit(text4, textRect4)
 
-        font = pygame.font.Font('Data/Bubblegum.ttf', 30)
-        text5 = font.render(points, True, (0,0,0,0))
-        textRect5 = text5.get_rect()
-        textRect5.center = (400,75)
-        Screen.blit(text5, textRect5)
-
         text6 = font2.render("Out of Money - GoodBye!", True, (0,0,0,0))
         textRect6 = text6.get_rect()
         textRect6.center = ((180, 600))
@@ -145,6 +138,7 @@ def roll(choice1, choice2, choice3, credit, machine_symbols, points,counter, x, 
         counter += 1
     if credit == 0.0 or credit < 0.0:
         pygame.quit()
+    return credit
 
 def button(text,textRect,text3,textRect3):
     mouse = pygame.mouse.get_pos()
@@ -157,7 +151,7 @@ def button(text,textRect,text3,textRect3):
         pygame.draw.ellipse(Screen, (0,0,0,0), (190, 350, 120, 80), 4)
         Screen.blit(text, textRect)
 
-def display(text,textRect,text2,textRect2,text3,textRect3,text7, textRect7, text8, textRect8):
+def display(text,textRect,text2,textRect2,text3,textRect3,text7, textRect7, text8, textRect8, text10, textRect10):
     Screen.fill((Background))
     pygame.draw.rect(Screen, Rect2, pygame.Rect(30,30,440,80),0,4)
     pygame.draw.rect(Screen, Border1,(30,120,440,200),0,4)
@@ -169,10 +163,15 @@ def display(text,textRect,text2,textRect2,text3,textRect3,text7, textRect7, text
     Screen.blit(text2, textRect2)
     Screen.blit(text8, textRect8)
     Screen.blit(text7, textRect7)
+    Screen.blit(text10, textRect10)
     pygame.display.update()
 
 def main():
     #More variables------------
+    d = 0
+    s = 0
+    l = 0
+    v = ""
     clock = pygame.time.Clock()
     font = pygame.font.Font('Data/Bubblegum.ttf', 30)
     font2 = pygame.font.Font('Data/Bubblegum.ttf', 18)
@@ -202,6 +201,9 @@ def main():
     text8 = font4.render("Slot Tip", True, (0,0,0,0))
     textRect8 = text8.get_rect()
     textRect8.center = (95,70)
+    text10 = font.render(v, True, (0,0,0,0))
+    textRect10 = text10.get_rect()
+    textRect10.center = (400,75)
     run = True
     #Done with variables--------
     while run:
@@ -212,9 +214,15 @@ def main():
                 run = False
             if (event.type == pygame.MOUSEBUTTONDOWN):
                 if (290 > mousee[0] > 190) and (450 > mousee[1] > 350):
-                    roll(choice1, choice2, choice3, credit, machine_symbols, points,counter,x,text4, textRect4, text5, textRect5, text6, textRect6)
-
-        display(text, textRect, text2, textRect2, text3, textRect3, text7, textRect7, text8, textRect8)
+                    s = d
+                    d = roll(choice1, choice2, choice3, credit, machine_symbols,counter,x,text4, textRect4, text6, textRect6)
+                    if s > d:
+                        l -= d
+                    elif s < d:
+                        l += d
+                    v = str(l)
+                    print(v)
+        display(text, textRect, text2, textRect2, text3, textRect3, text7, textRect7, text8, textRect8, text10, textRect10)
     pygame.quit()
 
 if __name__ == "__main__":
