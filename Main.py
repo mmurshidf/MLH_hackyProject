@@ -46,40 +46,42 @@ def roll(choice1, choice2, choice3, credit, machine_symbols, points,counter, x, 
     choice3 = random.choice(machine_symbols)
     if choice1 == choice2 == choice3: #all different combos for point change based on fruit machine rolls
         credit += 1.0
+        x = all_lines[random.randint(0, len(all_lines) - 1)]
         if choice1 == "Presents":
             credit += 4.0
-            x = all_lines[random.randint(0, len(all_lines))]
         elif choice1 == "Friends":
             credit = 0.0
             
     elif choice1 == choice2:
+        x = all_lines[random.randint(0, len(all_lines) - 1)]
         if choice1 != choice3:
             credit += 0.5
-            x = all_lines[random.randint(0, len(all_lines))]
             if choice1 == "Friends":
                 credit -= 1.5
-                
+                x = ""
     elif choice2 == choice3:
+        x = all_lines[random.randint(0, len(all_lines) - 1)]
         if choice2 != choice1:
             credit += 0.5
-            x = all_lines[random.randint(0, len(all_lines))]
             if choice2 == "Friends":
                 credit -= 1.5
-                
+                x = ""
     elif choice1 == choice3:
+        x = all_lines[random.randint(0, len(all_lines) - 1)]
         if choice1 != choice2:
             credit += 0.5
-            x = all_lines[random.randint(0, len(all_lines))]
             if choice1 == "Friends":
                 credit -= 1.5
-                
+                x = ""
+
     credit = round(credit, 2)
-    if credit >= 1.5 and credit < 2.0:
+    """if credit >= 1.5 and credit < 2.0:
         x = all_lines[random.randint(0, 4)]
     elif credit >= 2.0:
         x = all_lines[random.randint(4, 9)]
     else:
         x = ""
+        """
 
     print("You got", choice1, choice2, choice3, "Your credit so far is: ", credit)
     points = str(credit)
