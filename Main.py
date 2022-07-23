@@ -1,5 +1,7 @@
 import pygame
 import random
+pygame.init()
+pygame.display.set_caption("MLH HACKY Birthday Slot Machine!")
 #Variables----------
 choice1 = ""
 choice2 = ""
@@ -20,7 +22,6 @@ Candle_size = pygame.transform.scale(Candle, (Img_w, Img_h))
 Friends_size = pygame.transform.scale(Friends, (Img_w, Img_h))
 machine_symbols = ["Cake", "Presents", "Clown", "Money", "Candle", "Friends"]
 x = ""
-pygame.init()
 Width = 500
 Height = 700
 Screen = pygame.display.set_mode((Width, Height))
@@ -29,8 +30,6 @@ Border1 = (255,215,0)
 Rect2 = (255,255,237)
 White = (255,255,255)
 Button = (255,57,57)
-pygame.display.set_caption("MLH HACKY Birthday Slot Machine!")
-FPS = 60
 counter = 0
 current_roll = "I want to roll"
 push_leave = "game is open"
@@ -187,7 +186,7 @@ def main():
     run = True
     #Done with variables--------
     while run:
-        clock.tick(FPS)
+        clock.tick(60)
         for event in pygame.event.get():
             mousee = pygame.mouse.get_pos()
             if event.type == pygame.QUIT:
