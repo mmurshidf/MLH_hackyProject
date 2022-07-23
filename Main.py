@@ -148,7 +148,7 @@ def button(text,textRect,text3,textRect3):
         pygame.draw.ellipse(Screen, (0,0,0,0), (190, 350, 120, 80), 4)
         Screen.blit(text, textRect)
 
-def display(text,textRect,text2,textRect2,text3,textRect3):
+def display(text,textRect,text2,textRect2,text3,textRect3,text7, textRect7, text8, textRect8):
     Screen.fill((Background))
     pygame.draw.rect(Screen, Rect2, pygame.Rect(30,30,440,80),0,4)
     pygame.draw.rect(Screen, Border1,(30,120,440,200),0,4)
@@ -158,6 +158,8 @@ def display(text,textRect,text2,textRect2,text3,textRect3):
     button(text, textRect, text3, textRect3)
     pygame.draw.rect(Screen, Rect2, pygame.Rect(30,450,440,200),0,4)
     Screen.blit(text2, textRect2)
+    Screen.blit(text8, textRect8)
+    Screen.blit(text7, textRect7)
     pygame.display.update()
 
 def main():
@@ -165,6 +167,8 @@ def main():
     clock = pygame.time.Clock()
     font = pygame.font.Font('Data/Bubblegum.ttf', 30)
     font2 = pygame.font.Font('Data/Bubblegum.ttf', 18)
+    font3 = pygame.font.Font('Data/Bubblegum.ttf', 40)
+    font4 = pygame.font.Font('Data/Bubblegum.ttf', 42)
     text = font.render('SPIN', True, (255,255,255,255))
     textRect = text.get_rect()
     textRect.center = (250,390)
@@ -183,6 +187,12 @@ def main():
     text6 = font2.render("Out of Money - GoodBye!", True, (0,0,0,0))
     textRect6 = text6.get_rect()
     textRect6.center = ((180, 600))
+    text7 = font3.render("Slot Tip", True, Border1)
+    textRect7 = text7.get_rect()
+    textRect7.center = (95,70)
+    text8 = font4.render("Slot Tip", True, (0,0,0,0))
+    textRect8 = text8.get_rect()
+    textRect8.center = (95,70)
     run = True
     #Done with variables--------
     while run:
@@ -195,7 +205,7 @@ def main():
                 if (290 > mousee[0] > 190) and (450 > mousee[1] > 350):
                     roll(choice1, choice2, choice3, credit, machine_symbols, points,counter,x,text4, textRect4, text5, textRect5, text6, textRect6)
 
-        display(text, textRect, text2, textRect2, text3, textRect3)
+        display(text, textRect, text2, textRect2, text3, textRect3, text7, textRect7, text8, textRect8)
     pygame.quit()
 
 if __name__ == "__main__":
