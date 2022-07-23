@@ -1,4 +1,85 @@
 import pygame
+import random
+
+choice1 = ""
+choice2 = ""
+choice3 = ""
+machine_symbols = ["Cake", "Presents", "Clown", "Money", "Candle", "Friends"]
+#when using GUI you can call variable names cake, present etc. define the variable to corresponding image and then put variable names in list
+
+current_roll = "I want to roll"
+push_leave = "game is open"
+advice_msg = ""
+credit = float(1) #the amount of money they start with - it will change depending on score
+points = str(credit)
+
+
+def colour_change(): #in UI Could change spin colour of button if spin is pressed
+    if current_roll == "I want to roll":
+        #change colour of button?
+        current_roll = "Another Go!" #prompt to re roll
+
+def leave():
+    if push_leave == "I want to leave": #can change somewhere in the game then pass the function through
+        #kill the game
+        push_leave = "leave"
+
+
+def roll(choice1, choice2, choice3, credit, machine_symbols):
+
+    choice1 = random.choice(machine_symbols)
+    choice2 = random.choice(machine_symbols)
+    choice3 = random.choice(machine_symbols)
+    
+    if choice1 == choice2 == choice3: #all different combos for point change based on fruit machine rolls
+        credit += 1
+        if choice1 == "Presents":
+            credit += 4
+            print(all_lines[random.randint(0, len(all_lines))]) #advice appears when credit increases
+        elif choice1 == "Friends":
+            credit = 0
+            
+    if choice1 == choice2:
+        if choice1 != choice3:
+            credit += 0.5
+            print(all_lines[random.randint(0, len(all_lines))])
+            if choice1 == "Friends":
+                credit -= 1.5
+                
+    if choice2 == choice3:
+        if choice2 != choice1:
+            credit += 0.5
+            print(all_lines[random.randint(0, len(all_lines))])
+            if choice2 == "Friends":
+                credit -= 1.5
+                
+    if choice1 == choice3:
+        if choice1 != choice2:
+            credit += 0.5
+            print(all_lines[random.randint(0, len(all_lines))])
+            if choice1 == "Friends":
+                credit -= 1.5
+                
+    credit = round(credit, 2)
+    
+    print("You got", choice1, choice2, choice3, "Your credit so far is: ", credit)
+
+advice_text = open("advice.txt", "r")
+all_lines = advice_text.readlines()
+
+
+while credit > float(0): #checking all money is not gone
+    play_ans = input("Would you like to roll?")
+    if play_ans == "y":
+        credit -= 0.2 #spend to make a roll
+        machine_play = roll(choice1, choice2, choice3, credit, machine_symbols)
+    else:
+        print("Ok bye")
+        break
+    
+#end game here this is because credit is greater than 0
+
+#-------------------------------------------------------------------------
 pygame.init()
 Width = 500
 Height = 700
