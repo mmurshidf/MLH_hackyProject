@@ -74,6 +74,13 @@ def roll(choice1, choice2, choice3, credit, machine_symbols, points,counter, x, 
                 credit -= 1.5
                 
     credit = round(credit, 2)
+    if credit >= 1.5 and credit < 2.0:
+        x = all_lines[random.randint(0, 4)]
+    elif credit >= 2.0:
+        x = all_lines[random.randint(4, 9)]
+    else:
+        x = ""
+
     print("You got", choice1, choice2, choice3, "Your credit so far is: ", credit)
     points = str(credit)
     while counter < 1500:
