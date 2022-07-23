@@ -1,3 +1,4 @@
+from tkinter import Y
 import pygame
 import random
 
@@ -14,7 +15,6 @@ current_roll = "I want to roll"
 push_leave = "game is open"
 advice_msg = ""
 credit = float(1) #the amount of money they start with - it will change depending on score
-
 
 def colour_change(): #in UI Could change spin colour of button if spin is pressed
     if current_roll == "I want to roll":
@@ -62,7 +62,8 @@ def roll(choice1, choice2, choice3, credit, machine_symbols):
                 credit -= 1.5
                 
     credit = round(credit, 2)
-    
+    print(credit)
+
     print("You got", choice1, choice2, choice3, "Your credit so far is: ", credit)
 
 advice_text = open("advice.txt", "r")
@@ -70,14 +71,6 @@ all_lines = advice_text.readlines()
 x = all_lines[random.randint(0, len(all_lines))]
 
 
-while credit > float(0): #checking all money is not gone
-    play_ans = input("Would you like to roll?")
-    if play_ans == "y":
-        credit -= 0.2 #spend to make a roll
-        machine_play = roll(choice1, choice2, choice3, credit, machine_symbols)
-    else:
-        print("Ok bye")
-        break
     
 #end game here this is because credit is greater than 0
 
@@ -94,6 +87,7 @@ Button = (255,57,57)
 pygame.display.set_caption("MLH HACKY Birthday Slot Machine!")
 FPS = 60
 points = str(credit)
+
 
 def button(text,textRect,text3,textRect3):
     mouse = pygame.mouse.get_pos()
@@ -152,8 +146,6 @@ def main():
                 if (290 > mousee[0] > 190) and (450 > mousee[1] > 350):
                     roll(choice1, choice2, choice3, credit, machine_symbols)
                     print(credit)
-                    print("Hello")
-                    print(choice1)
                     count += 1
         display(text, textRect, text2, textRect2, text3, textRect3, text4, textRect4, count, text5, textRect5)
     pygame.quit()
