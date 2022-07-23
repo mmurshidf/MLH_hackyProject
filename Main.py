@@ -6,8 +6,10 @@ choice1 = ""
 choice2 = ""
 choice3 = ""
 
-
+Img_h = 110
+Img_w = 110
 Cake = pygame.image.load('cake.png')
+Img_size = pygame.transform.scale(Cake, (Img_w, Img_h))
 machine_symbols = ["Cake", "Presents", "Clown", "Money", "Candle", "Friends"]
 #when using GUI you can call variable names cake, present etc. define the variable to corresponding image and then put variable names in list
 
@@ -57,7 +59,7 @@ def roll(choice1, choice2, choice3, credit, machine_symbols):
     if choice1 == choice3:
         if choice1 != choice2:
             credit += 0.5
-            print(x)
+            print(all_lines[random.randint(0, len(all_lines))])
             if choice1 == "Friends":
                 credit -= 1.5
                 
@@ -113,6 +115,12 @@ def display(text,textRect,text2,textRect2,text3,textRect3, text4, textRect4,coun
     if count == 1:
         Screen.blit(text4, textRect4)
     Screen.blit(text5, textRect5)
+    if count == 1:
+            Screen.blit(Img_size, (55,165))
+            Screen.blit(Img_size, (190,165))
+            Screen.blit(Img_size, (325,165))
+            pygame.display.update()
+
     pygame.display.update()
 
 def main():
@@ -143,10 +151,17 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
             if (event.type == pygame.MOUSEBUTTONDOWN):
-                if (290 > mousee[0] > 190) and (450 > mousee[1] > 350):
+                if (290 > mousee[0] > 190) and (450 > mousee[1] > 350) and ((count == 0) or (count == 1)):
                     roll(choice1, choice2, choice3, credit, machine_symbols)
                     print(credit)
                     count += 1
+                elif (290 > mousee[0] > 190) and (450 > mousee[1] > 350) and (count == 2):
+                    roll(choice1, choice2, choice3, credit, machine_symbols)
+                    print("hi")
+                    count -= 1
+                    
+
+
         display(text, textRect, text2, textRect2, text3, textRect3, text4, textRect4, count, text5, textRect5)
     pygame.quit()
 
