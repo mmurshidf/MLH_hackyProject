@@ -1,10 +1,9 @@
 import pygame
 import random
-
+#Variables----------
 choice1 = ""
 choice2 = ""
 choice3 = ""
-
 Img_h = 110
 Img_w = 110
 Cake = pygame.image.load('Data/cake.png')
@@ -21,35 +20,31 @@ Candle_size = pygame.transform.scale(Candle, (Img_w, Img_h))
 Friends_size = pygame.transform.scale(Friends, (Img_w, Img_h))
 machine_symbols = ["Cake", "Presents", "Clown", "Money", "Candle", "Friends"]
 x = ""
-#when using GUI you can call variable names cake, present etc. define the variable to corresponding image and then put variable names in list
-
+pygame.init()
+Width = 500
+Height = 700
+Screen = pygame.display.set_mode((Width, Height))
+Background = (111,28,28)
+Border1 = (255,215,0)
+Rect2 = (255,255,237)
+White = (255,255,255)
+Button = (255,57,57)
+pygame.display.set_caption("MLH HACKY Birthday Slot Machine!")
+FPS = 60
 counter = 0
-
-
 current_roll = "I want to roll"
 push_leave = "game is open"
 advice_msg = ""
-credit = 1.0 #the amount of money they start with - it will change depending on score
+credit = 1.0
 points = str(credit)
 advice_text = open("Data/advice.txt", "r")
 all_lines = advice_text.readlines()
 
-def colour_change(): #in UI Could change spin colour of button if spin is pressed
-    if current_roll == "I want to roll":
-        #change colour of button?
-        current_roll = "Another Go!" #prompt to re roll
-
-def leave():
-    if push_leave == "I want to leave": #can change somewhere in the game then pass the function through
-        #kill the game
-        push_leave = "leave"
-
+#Functions------------
 def roll(choice1, choice2, choice3, credit, machine_symbols, points,counter, x, text4, textRect4, text5, textRect5, textRect6, text6):
-
     choice1 = random.choice(machine_symbols)
     choice2 = random.choice(machine_symbols)
     choice3 = random.choice(machine_symbols)
-    
     if choice1 == choice2 == choice3: #all different combos for point change based on fruit machine rolls
         credit += 1.0
         if choice1 == "Presents":
@@ -80,8 +75,6 @@ def roll(choice1, choice2, choice3, credit, machine_symbols, points,counter, x, 
                 credit -= 1.5
                 
     credit = round(credit, 2)
-    print(credit)
-
     print("You got", choice1, choice2, choice3, "Your credit so far is: ", credit)
     points = str(credit)
     while counter < 1500:
@@ -145,23 +138,6 @@ def roll(choice1, choice2, choice3, credit, machine_symbols, points,counter, x, 
     if credit == 0.0 or credit < 0.0:
         pygame.quit()
 
-
-    
-#end game here this is because credit is greater than 0
-
-#-------------------------------------------------------------------------
-pygame.init()
-Width = 500
-Height = 700
-Screen = pygame.display.set_mode((Width, Height))
-Background = (111,28,28)
-Border1 = (255,215,0)
-Rect2 = (255,255,237)
-White = (255,255,255)
-Button = (255,57,57)
-pygame.display.set_caption("MLH HACKY Birthday Slot Machine!")
-FPS = 60
-
 def button(text,textRect,text3,textRect3):
     mouse = pygame.mouse.get_pos()
     if (290 > mouse[0] > 190) and (450 > mouse[1] > 350):
@@ -183,10 +159,10 @@ def display(text,textRect,text2,textRect2,text3,textRect3):
     button(text, textRect, text3, textRect3)
     pygame.draw.rect(Screen, Rect2, pygame.Rect(30,450,440,200),0,4)
     Screen.blit(text2, textRect2)
-
     pygame.display.update()
 
 def main():
+    #More variables------------
     clock = pygame.time.Clock()
     font = pygame.font.Font('Data/Bubblegum.ttf', 30)
     font2 = pygame.font.Font('Data/Bubblegum.ttf', 18)
@@ -209,6 +185,7 @@ def main():
     textRect6 = text6.get_rect()
     textRect6.center = ((180, 600))
     run = True
+    #Done with variables--------
     while run:
         clock.tick(FPS)
         for event in pygame.event.get():
