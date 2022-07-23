@@ -7,12 +7,12 @@ choice3 = ""
 
 Img_h = 110
 Img_w = 110
-Cake = pygame.image.load('cake.png')
-Presents = pygame.image.load('Gift.png')
-Clown = pygame.image.load('clown.png')
-Money = pygame.image.load('Money.png')
-Candle = pygame.image.load('candle.png')
-Friends = pygame.image.load('friends.png')
+Cake = pygame.image.load('Data/cake.png')
+Presents = pygame.image.load('Data/Gift.png')
+Clown = pygame.image.load('Data/clown.png')
+Money = pygame.image.load('Data/Money.png')
+Candle = pygame.image.load('Data/candle.png')
+Friends = pygame.image.load('Data/friends.png')
 Cake_size = pygame.transform.scale(Cake, (Img_w, Img_h))
 Presents_size = pygame.transform.scale(Presents, (Img_w, Img_h))
 Clown_size = pygame.transform.scale(Clown, (Img_w, Img_h))
@@ -31,7 +31,7 @@ push_leave = "game is open"
 advice_msg = ""
 credit = 1.0 #the amount of money they start with - it will change depending on score
 points = str(credit)
-advice_text = open("advice.txt", "r")
+advice_text = open("Data/advice.txt", "r")
 all_lines = advice_text.readlines()
 
 def colour_change(): #in UI Could change spin colour of button if spin is pressed
@@ -123,13 +123,13 @@ def roll(choice1, choice2, choice3, credit, machine_symbols, points,counter, x, 
             Screen.blit(Friends_size, (325,165))
         else:
             Screen.blit(Clown_size, (325,165))
-        font2 = pygame.font.Font('Bubblegum.ttf', 18)
+        font2 = pygame.font.Font('Data/Bubblegum.ttf', 18)
         text4 = font2.render(x, True, (0,0,0,0))
         textRect4 = text4.get_rect()
         textRect4.center = (250, 550)
         Screen.blit(text4, textRect4)
 
-        font = pygame.font.Font('Bubblegum.ttf', 30)
+        font = pygame.font.Font('Data/Bubblegum.ttf', 30)
         text5 = font.render(points, True, (0,0,0,0))
         textRect5 = text5.get_rect()
         textRect5.center = (400,75)
@@ -188,8 +188,8 @@ def display(text,textRect,text2,textRect2,text3,textRect3):
 
 def main():
     clock = pygame.time.Clock()
-    font = pygame.font.Font('Bubblegum.ttf', 30)
-    font2 = pygame.font.Font('Bubblegum.ttf', 18)
+    font = pygame.font.Font('Data/Bubblegum.ttf', 30)
+    font2 = pygame.font.Font('Data/Bubblegum.ttf', 18)
     text = font.render('SPIN', True, (255,255,255,255))
     textRect = text.get_rect()
     textRect.center = (250,390)
