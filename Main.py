@@ -5,6 +5,8 @@ choice1 = ""
 choice2 = ""
 choice3 = ""
 
+choice = 0
+
 Cake = pygame.image.load('cake.png')
 machine_symbols = ["Cake", "Presents", "Clown", "Money", "Candle", "Friends"]
 #when using GUI you can call variable names cake, present etc. define the variable to corresponding image and then put variable names in list
@@ -30,6 +32,8 @@ def roll(choice1, choice2, choice3, credit, machine_symbols):
     choice1 = random.choice(machine_symbols)
     choice2 = random.choice(machine_symbols)
     choice3 = random.choice(machine_symbols)
+    if choice1 == "Presents":
+        choice = 1
 
     if choice1 == choice2 == choice3: #all different combos for point change based on fruit machine rolls
         credit += 1
@@ -105,7 +109,7 @@ def button(text,textRect,text3,textRect3):
         pygame.draw.ellipse(Screen, (0,0,0,0), (190, 350, 120, 80), 4)
         Screen.blit(text, textRect)
 
-def display(text,textRect,text2,textRect2,text3,textRect3, text4, textRect4,count):
+def display(text,textRect,text2,textRect2,text3,textRect3, text4, textRect4,count, choice, text5, textRect5):
     Screen.fill((Background))
     pygame.draw.rect(Screen, Rect2, pygame.Rect(30,30,440,80),0,4)
     pygame.draw.rect(Screen, Border1,(30,120,440,200),0,4)
@@ -117,12 +121,15 @@ def display(text,textRect,text2,textRect2,text3,textRect3, text4, textRect4,coun
     Screen.blit(text2, textRect2)
     if count == 1:
         Screen.blit(text4, textRect4)
+    if choice == 1:
+        Screen.blit(Cake, (440, 200))
+    Screen.blit(text5, textRect5)
     pygame.display.update()
 
 def main():
     clock = pygame.time.Clock()
     font = pygame.font.Font('Bubblegum.ttf', 30)
-    font2 = pygame.font.Font('Bubblegum.ttf', 20)
+    font2 = pygame.font.Font('Bubblegum.ttf', 18)
     text = font.render('SPIN', True, (255,255,255,255))
     textRect = text.get_rect()
     textRect.center = (250,390)
@@ -135,6 +142,9 @@ def main():
     text4 = font2.render(x, True, (0,0,0,0))
     textRect4 = text4.get_rect()
     textRect4.center = (250, 550)
+    text5 = font.render(points, True, (0,0,0,0))
+    textRect5 = text5.get_rect()
+    textRect5.center = (400,75)
     count = 0
     run = True
     while run:
@@ -150,7 +160,7 @@ def main():
                     print("Hello")
                     print(choice1)
                     count += 1
-        display(text, textRect, text2, textRect2, text3, textRect3, text4, textRect4, count)
+        display(text, textRect, text2, textRect2, text3, textRect3, text4, textRect4, count, choice, text5, textRect5)
     pygame.quit()
 
 if __name__ == "__main__":
