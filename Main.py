@@ -31,6 +31,8 @@ push_leave = "game is open"
 advice_msg = ""
 credit = 1.0 #the amount of money they start with - it will change depending on score
 points = str(credit)
+advice_text = open("advice.txt", "r")
+all_lines = advice_text.readlines()
 
 def colour_change(): #in UI Could change spin colour of button if spin is pressed
     if current_roll == "I want to roll":
@@ -49,18 +51,16 @@ def roll(choice1, choice2, choice3, credit, machine_symbols, points,counter, x, 
     choice3 = random.choice(machine_symbols)
     
     if choice1 == choice2 == choice3: #all different combos for point change based on fruit machine rolls
-        credit += 1
+        credit += 1.0
         if choice1 == "Presents":
-            credit += 4
-            print(all_lines[random.randint(0, len(all_lines))]) #advice appears when credit increases
+            credit += 4.0
             x = all_lines[random.randint(0, len(all_lines))]
         elif choice1 == "Friends":
-            credit = 0
+            credit = 0.0
             
     elif choice1 == choice2:
         if choice1 != choice3:
             credit += 0.5
-            print(all_lines[random.randint(0, len(all_lines))])
             x = all_lines[random.randint(0, len(all_lines))]
             if choice1 == "Friends":
                 credit -= 1.5
@@ -68,7 +68,6 @@ def roll(choice1, choice2, choice3, credit, machine_symbols, points,counter, x, 
     elif choice2 == choice3:
         if choice2 != choice1:
             credit += 0.5
-            print(all_lines[random.randint(0, len(all_lines))])
             x = all_lines[random.randint(0, len(all_lines))]
             if choice2 == "Friends":
                 credit -= 1.5
@@ -76,12 +75,12 @@ def roll(choice1, choice2, choice3, credit, machine_symbols, points,counter, x, 
     elif choice1 == choice3:
         if choice1 != choice2:
             credit += 0.5
-            print(all_lines[random.randint(0, len(all_lines))])
             x = all_lines[random.randint(0, len(all_lines))]
             if choice1 == "Friends":
                 credit -= 1.5
                 
     credit = round(credit, 2)
+    print(credit)
 
     print("You got", choice1, choice2, choice3, "Your credit so far is: ", credit)
     points = str(credit)
@@ -145,10 +144,6 @@ def roll(choice1, choice2, choice3, credit, machine_symbols, points,counter, x, 
         counter += 1
     if credit == 0.0 or credit < 0.0:
         pygame.quit()
-
-advice_text = open("advice.txt", "r")
-all_lines = advice_text.readlines()
-all_lines[random.randint(0, len(all_lines))]
 
 
     
