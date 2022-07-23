@@ -73,6 +73,8 @@ def roll(choice1, choice2, choice3, credit, machine_symbols,counter, x, text4, t
             if choice1 == "Friends":
                 credit -= 1.5
                 x = ""
+    else:
+        credit -= 0.5
 
     credit = round(credit, 2)
     """if credit >= 1.5 and credit < 2.0:
@@ -136,8 +138,6 @@ def roll(choice1, choice2, choice3, credit, machine_symbols,counter, x, text4, t
             Screen.blit(text6, textRect6)
         pygame.display.update()
         counter += 1
-    if credit == 0.0 or credit < 0.0:
-        pygame.quit()
     return credit
 
 def button(text,textRect,text3,textRect3):
@@ -169,9 +169,9 @@ def display(text,textRect,text2,textRect2,text3,textRect3,text7, textRect7, text
 def main():
     #More variables------------
     d = 0
-    s = 0
+    s = 1.0
     l = 0
-    v = ""
+    v = "1.0"
     clock = pygame.time.Clock()
     font = pygame.font.Font('Data/Bubblegum.ttf', 30)
     font2 = pygame.font.Font('Data/Bubblegum.ttf', 18)
@@ -201,9 +201,7 @@ def main():
     text8 = font4.render("Slot Tip", True, (0,0,0,0))
     textRect8 = text8.get_rect()
     textRect8.center = (95,70)
-    text10 = font.render(v, True, (0,0,0,0))
-    textRect10 = text10.get_rect()
-    textRect10.center = (400,75)
+    b = 0
     run = True
     #Done with variables--------
     while run:
@@ -216,14 +214,24 @@ def main():
                 if (290 > mousee[0] > 190) and (450 > mousee[1] > 350):
                     s = d
                     d = roll(choice1, choice2, choice3, credit, machine_symbols,counter,x,text4, textRect4, text6, textRect6)
-                    if s > d:
+                    if s >= d:
                         l -= d
                     elif s < d:
                         l += d
                     v = str(l)
-                    print(v)
+                while b < 100:
+                    b += 1
+                    if v == "0.0":
+                        Screen.blit(text10, textRect10)
+                        pygame.display.update()
+                if v == "0.0":
+                    pygame.quit()
+                    
+                print(v)
+        text10 = font.render(v, True, (0,0,0,0))
+        textRect10 = text10.get_rect()
+        textRect10.center = (400,75)
         display(text, textRect, text2, textRect2, text3, textRect3, text7, textRect7, text8, textRect8, text10, textRect10)
     pygame.quit()
-
 if __name__ == "__main__":
     main()
