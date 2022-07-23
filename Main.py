@@ -77,15 +77,6 @@ def roll(choice1, choice2, choice3, credit, machine_symbols,counter, x, text4, t
         credit -= 0.5
 
     credit = round(credit, 2)
-    """if credit >= 1.5 and credit < 2.0:
-        x = all_lines[random.randint(0, 4)]
-    elif credit >= 2.0:
-        x = all_lines[random.randint(4, 9)]
-    else:
-        x = ""
-        """
-
-    print("You got", choice1, choice2, choice3, "Your credit so far is: ", credit)
     while counter < 1500:
         if choice1 == "Presents":
             Screen.blit(Presents_size, (55,165))
@@ -226,8 +217,6 @@ def main():
                         pygame.display.update()
                 if v == "0.0":
                     pygame.quit()
-                    
-                print(v)
         text10 = font.render(v, True, (0,0,0,0))
         textRect10 = text10.get_rect()
         textRect10.center = (400,75)
