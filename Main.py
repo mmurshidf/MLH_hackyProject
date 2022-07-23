@@ -42,7 +42,7 @@ def leave():
         #kill the game
         push_leave = "leave"
 
-def roll(choice1, choice2, choice3, credit, machine_symbols, points,counter, x, text4, textRect4):
+def roll(choice1, choice2, choice3, credit, machine_symbols, points,counter, x, text4, textRect4, text5, textRect5, textRect6, text6):
 
     choice1 = random.choice(machine_symbols)
     choice2 = random.choice(machine_symbols)
@@ -130,8 +130,22 @@ def roll(choice1, choice2, choice3, credit, machine_symbols, points,counter, x, 
         textRect4 = text4.get_rect()
         textRect4.center = (250, 550)
         Screen.blit(text4, textRect4)
+
+        font = pygame.font.Font('Bubblegum.ttf', 30)
+        text5 = font.render(points, True, (0,0,0,0))
+        textRect5 = text5.get_rect()
+        textRect5.center = (400,75)
+        Screen.blit(text5, textRect5)
+
+        text6 = font2.render("Out of Money - GoodBye!", True, (0,0,0,0))
+        textRect6 = text6.get_rect()
+        textRect6.center = ((180, 600))
+        if credit == 0.0 or credit < 0.0:
+            Screen.blit(text6, textRect6)
         pygame.display.update()
         counter += 1
+    if credit == 0.0 or credit < 0.0:
+        pygame.quit()
 
 advice_text = open("advice.txt", "r")
 all_lines = advice_text.readlines()
@@ -194,9 +208,12 @@ def main():
     text4 = font2.render(x, True, (0,0,0,0))
     textRect4 = text4.get_rect()
     textRect4.center = (250, 550)
-    """text5 = font.render(points, True, (0,0,0,0))
+    text5 = font.render(points, True, (0,0,0,0))
     textRect5 = text5.get_rect()
-    textRect5.center = (400,75)"""
+    textRect5.center = (400,75)
+    text6 = font2.render("Out of Money - GoodBye!", True, (0,0,0,0))
+    textRect6 = text6.get_rect()
+    textRect6.center = ((180, 600))
     run = True
     while run:
         clock.tick(FPS)
@@ -206,7 +223,7 @@ def main():
                 run = False
             if (event.type == pygame.MOUSEBUTTONDOWN):
                 if (290 > mousee[0] > 190) and (450 > mousee[1] > 350):
-                    roll(choice1, choice2, choice3, credit, machine_symbols, points,counter,x,text4, textRect4)
+                    roll(choice1, choice2, choice3, credit, machine_symbols, points,counter,x,text4, textRect4, text5, textRect5, text6, textRect6)
 
         display(text, textRect, text2, textRect2, text3, textRect3)
     pygame.quit()
