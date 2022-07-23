@@ -85,7 +85,6 @@ def roll(choice1, choice2, choice3, credit, machine_symbols, points,counter, x, 
 
     print("You got", choice1, choice2, choice3, "Your credit so far is: ", credit)
     points = str(credit)
-    print("this is", points, credit)
     while counter < 1500:
         if choice1 == "Presents":
             Screen.blit(Presents_size, (55,165))
