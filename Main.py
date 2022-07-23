@@ -4,6 +4,8 @@ import random
 choice1 = ""
 choice2 = ""
 choice3 = ""
+
+Cake = pygame.image.load('cake.png')
 machine_symbols = ["Cake", "Presents", "Clown", "Money", "Candle", "Friends"]
 #when using GUI you can call variable names cake, present etc. define the variable to corresponding image and then put variable names in list
 
@@ -11,7 +13,6 @@ current_roll = "I want to roll"
 push_leave = "game is open"
 advice_msg = ""
 credit = float(1) #the amount of money they start with - it will change depending on score
-points = str(credit)
 
 
 def colour_change(): #in UI Could change spin colour of button if spin is pressed
@@ -24,13 +25,12 @@ def leave():
         #kill the game
         push_leave = "leave"
 
-
 def roll(choice1, choice2, choice3, credit, machine_symbols):
 
     choice1 = random.choice(machine_symbols)
     choice2 = random.choice(machine_symbols)
     choice3 = random.choice(machine_symbols)
-    
+
     if choice1 == choice2 == choice3: #all different combos for point change based on fruit machine rolls
         credit += 1
         if choice1 == "Presents":
@@ -56,7 +56,7 @@ def roll(choice1, choice2, choice3, credit, machine_symbols):
     if choice1 == choice3:
         if choice1 != choice2:
             credit += 0.5
-            print(all_lines[random.randint(0, len(all_lines))])
+            print(x)
             if choice1 == "Friends":
                 credit -= 1.5
                 
@@ -66,6 +66,7 @@ def roll(choice1, choice2, choice3, credit, machine_symbols):
 
 advice_text = open("advice.txt", "r")
 all_lines = advice_text.readlines()
+x = all_lines[random.randint(0, len(all_lines))]
 
 
 while credit > float(0): #checking all money is not gone
@@ -91,6 +92,7 @@ White = (255,255,255)
 Button = (255,57,57)
 pygame.display.set_caption("MLH HACKY Birthday Slot Machine!")
 FPS = 60
+points = str(credit)
 
 def button(text,textRect,text3,textRect3):
     mouse = pygame.mouse.get_pos()
@@ -103,7 +105,7 @@ def button(text,textRect,text3,textRect3):
         pygame.draw.ellipse(Screen, (0,0,0,0), (190, 350, 120, 80), 4)
         Screen.blit(text, textRect)
 
-def display(text,textRect,text2,textRect2,text3,textRect3):
+def display(text,textRect,text2,textRect2,text3,textRect3, text4, textRect4,count):
     Screen.fill((Background))
     pygame.draw.rect(Screen, Rect2, pygame.Rect(30,30,440,80),0,4)
     pygame.draw.rect(Screen, Border1,(30,120,440,200),0,4)
@@ -113,11 +115,14 @@ def display(text,textRect,text2,textRect2,text3,textRect3):
     button(text, textRect, text3, textRect3)
     pygame.draw.rect(Screen, Rect2, pygame.Rect(30,450,440,200),0,4)
     Screen.blit(text2, textRect2)
+    if count == 1:
+        Screen.blit(text4, textRect4)
     pygame.display.update()
 
 def main():
     clock = pygame.time.Clock()
     font = pygame.font.Font('Bubblegum.ttf', 30)
+    font2 = pygame.font.Font('Bubblegum.ttf', 20)
     text = font.render('SPIN', True, (255,255,255,255))
     textRect = text.get_rect()
     textRect.center = (250,390)
@@ -127,6 +132,10 @@ def main():
     text2 = font.render('Advice', True, (0,0,0,0))
     textRect2 = text2.get_rect()
     textRect2.center = (240, 475)
+    text4 = font2.render(x, True, (0,0,0,0))
+    textRect4 = text4.get_rect()
+    textRect4.center = (250, 550)
+    count = 0
     run = True
     while run:
         clock.tick(FPS)
@@ -136,8 +145,12 @@ def main():
                 run = False
             if (event.type == pygame.MOUSEBUTTONDOWN):
                 if (290 > mousee[0] > 190) and (450 > mousee[1] > 350):
+                    roll(choice1, choice2, choice3, credit, machine_symbols)
+                    print(credit)
                     print("Hello")
-        display(text, textRect, text2, textRect2, text3, textRect3)
+                    print(choice1)
+                    count += 1
+        display(text, textRect, text2, textRect2, text3, textRect3, text4, textRect4, count)
     pygame.quit()
 
 if __name__ == "__main__":
